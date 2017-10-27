@@ -1,0 +1,9 @@
+.checkbox-legend__container-column {
+    flex-basis: 32.9%;
+    text-align: left;
+    position: relative;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}

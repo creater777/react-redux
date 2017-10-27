@@ -1,0 +1,42 @@
+.checkbox-legend__checkbox.checkbox-legend__checkbox-grey.checked:before {
+    background-position: -16px 0;
+}
+
+.checkbox-legend__checkbox.checkbox-legend__checkbox-grey:before {
+    background-position: 0 0;
+}
+
+.checkbox-legend__checkbox:before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 5px 0;
+    position: absolute;
+    background: url(../checkboxes2.png);
+}
+
+.checkbox-legend__checkbox {
+    width: 16px;
+    height: 26px;
+    cursor: pointer;
+    position: absolute;
+    float: left;
+    margin-right: 5px;
+}
+
+.checkbox-legend__container-column-row {
+    height: 26px;
+    position: relative;
+}
+
+.checkbox-legend__container-column-row span {
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+    width: 170px;
+    padding-left: 26px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
