@@ -1,26 +1,27 @@
-import React, { Component } from 'react';
-import * as Redux from 'redux';
-import { Provider } from 'react-redux';
-import { persistState } from 'redux-devtools';
+import React, { Component } from 'react'
+import { compose, createStore, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
+import { persistState } from 'redux-devtools'
 
-import logo from './logo.svg';
-import './App.css';
+import logo from './logo.svg'
+import './App.css'
 
-import * as reducers from './reducers';
-import CheckBoxColumn from './components/CheckBoxColumn';
+// import * as reducers from './reducers'
+import checkBoxColumn from './reducers/CheckBoxColumn'
+import CheckBoxColumn from './components/CheckBoxColumn'
 
-import DevTools from './utils/devTools';
+import DevTools from './utils/devTools'
 
-const finalCreateStore = Redux.compose(
+const finalCreateStore = compose(
   DevTools.instrument(),
   persistState(
     window.location.href.match(
       /[?&]debug_session=([^&]+)\b/
     )
   )
-)(Redux.createStore);
+)(createStore)
 
-const store = finalCreateStore(Redux.combineReducers(reducers));
+const store = finalCreateStore(checkBoxColumn)
 
 class App extends Component {
   render() {
@@ -39,8 +40,8 @@ class App extends Component {
         </Provider>
         <DevTools store={store} shortcut='ctrl+d'/>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
