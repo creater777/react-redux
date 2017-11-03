@@ -1,58 +1,37 @@
 /**
  * Created by Programmist on 25.10.2017.
  */
-import React, { Component } from 'react';
-import * as Redux from 'redux';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import './CheckBoxColumn.css';
-import CheckBox from './CheckBox';
-import * as checkBoxActions from '../actions/CheckBoxActions';
-
-let initialState = {
-  checked: false,
-  text: `checkbox`,
-  id: 0
-};
+import './CheckBoxColumn.css'
+import CheckBox from './CheckBox'
 
 class CheckBoxColumn extends Component{
-
-  constructor(props, context) {
-    super(props, context);
-  }
-
   render(){
-    const items = [];
-    for (let i=0; i<100; i++){
-      items.push({...initialState, id: i});
+    let arr = []
+    for (let item in this.props){
+      if (typeof this.props[item] === "object"){
+        arr.push(this.props[item])
+      }
     }
-    return(
+    // console.log('column render. length ' + arr.length)
 
+    return(
       <div className="checkbox-legend__container-column">
-         {items ? items.map(item => {
-           return(
-             <CheckBox {...item}/>
-           )
-        }) : null
+        {arr && arr.map(item => {
+          return(
+            <CheckBox key={item.id} {...item}/>
+          )
+        })
         }
       </div>
-    );
+    )
   }
 }
 
-
-function mapState(state, iam) {
-  return
-    state.default.items
-  ;
+function mapState(state) {
+  return state.items
 }
 
-function mapDispatch(dispatch) {
-  return {
-    actions: Redux.bindActionCreators(checkBoxActions, dispatch)
-  };
-}
-
-// export default connect(mapState)(CheckBoxColumn);
-
-export default CheckBoxColumn;
+export default connect(mapState)(CheckBoxColumn)

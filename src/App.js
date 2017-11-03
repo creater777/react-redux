@@ -6,11 +6,10 @@ import { persistState } from 'redux-devtools'
 import logo from './logo.svg'
 import './App.css'
 
-// import * as reducers from './reducers'
-import checkBoxColumn from './reducers/CheckBoxColumn'
-import CheckBoxColumn from './components/CheckBoxColumn'
+import checkBoxColumnReducer from './reducers/CheckBoxColumn'
+import CheckBoxColumn from './components/CheckBoxColumn';
 
-import DevTools from './utils/devTools'
+import DevTools from './utils/devTools';
 
 const finalCreateStore = compose(
   DevTools.instrument(),
@@ -19,9 +18,9 @@ const finalCreateStore = compose(
       /[?&]debug_session=([^&]+)\b/
     )
   )
-)(createStore)
+)(createStore);
 
-const store = finalCreateStore(checkBoxColumn)
+const store = finalCreateStore(checkBoxColumnReducer);
 
 class App extends Component {
   render() {
@@ -40,8 +39,8 @@ class App extends Component {
         </Provider>
         <DevTools store={store} shortcut='ctrl+d'/>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
