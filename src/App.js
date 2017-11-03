@@ -37,7 +37,7 @@ class App extends Component {
         <Provider store={store}>
           <CheckBoxColumn />
         </Provider>
-        <DevTools store={store} shortcut='ctrl+d'/>
+        {/*<DevTools store={store} shortcut='ctrl+d'/>*/}
       </div>
     );
   }
