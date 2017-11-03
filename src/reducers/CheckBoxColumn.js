@@ -1,12 +1,14 @@
 /**
  * Created by Programmist on 25.10.2017.
  */
+import mapValues from 'lodash/object/mapValues';
 
-import * as actions from '../actions/CheckBoxActions'
+import * as actions from '../actions/CheckBoxActions';
 
 let initialState = {
   checked: false,
-  text: `checkbox`
+  text: `checkbox`,
+  id: 0
 };
 
 export let columnDefaultState = {};
@@ -18,14 +20,20 @@ for (let i=0; i<100; i++){
 export default function checkBoxColumn(state, action) {
   switch (action.type){
     case actions.CLICK:
-      return {items: actionClick(state.items, action)};
+      return {...state, [action.id]: checkBox(state[action.id], action)};
     default:
-      return !state ? {items: {initialState}} : state;
+      return !state ? columnDefaultState: state;
   }
 }
 
-function actionClick(state, action){
-  let item = state[action.id]
-  item.checked = !item.checked
-  return { ...state, item}
+export function checkBox(state, action) {
+  switch (action.type){
+    case actions.CLICK:
+      let item = JSON.parse(JSON.stringify(state))
+      item.checked = !item.checked
+      return item
+    default:
+      return initialState;
+  }
 }
+
