@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { compose, createStore, combineReducers } from 'redux'
+import { compose, createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { persistState } from 'redux-devtools'
 
 import logo from './logo.svg'
+import midlewares from './midlewares/loger'
 import './App.css'
 
 import checkBoxColumnReducer from './reducers/CheckBoxColumn'
@@ -11,14 +12,15 @@ import CheckBoxColumn from './components/CheckBoxColumn';
 
 import DevTools from './utils/devTools';
 
-const finalCreateStore = compose(
+const finalCreateStore = applyMiddleware(compose(
+  midlewares,
   DevTools.instrument(),
   persistState(
     window.location.href.match(
       /[?&]debug_session=([^&]+)\b/
     )
   )
-)(createStore);
+))(createStore);
 
 const store = finalCreateStore(checkBoxColumnReducer);
 
