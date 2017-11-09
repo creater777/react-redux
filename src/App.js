@@ -1,28 +1,21 @@
 import React, { Component } from 'react'
-import { compose, createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import { persistState } from 'redux-devtools'
+import thunkMiddleware from 'redux-thunk'
 
 import logo from './logo.svg'
-import midlewares from './midlewares/loger'
+import { logger } from './middlewares/loger'
 import './App.css'
 
 import checkBoxColumnReducer from './reducers/CheckBoxColumn'
-import CheckBoxColumn from './components/CheckBoxColumn';
+import CheckBoxColumns from './containers/CheckBoxColumns'
 
-import DevTools from './utils/devTools';
 
-const finalCreateStore = applyMiddleware(compose(
-  midlewares,
-  DevTools.instrument(),
-  persistState(
-    window.location.href.match(
-      /[?&]debug_session=([^&]+)\b/
-    )
-  )
-))(createStore);
-
-const store = finalCreateStore(checkBoxColumnReducer);
+const store = createStore(
+  checkBoxColumnReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(logger, thunkMiddleware)
+)
 
 class App extends Component {
   render() {
@@ -37,9 +30,8 @@ class App extends Component {
         </p>
 
         <Provider store={store}>
-          <CheckBoxColumn />
+            <CheckBoxColumns />
         </Provider>
-        {/*<DevTools store={store} shortcut='ctrl+d'/>*/}
       </div>
     );
   }

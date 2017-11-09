@@ -2,25 +2,24 @@
  * Created by Programmist on 25.10.2017.
  */
 import React, { Component } from 'react'
-// import { connect } from 'react-redux'
-import { columnDefaultState } from '../reducers/CheckBoxColumn'
 
 import './CheckBoxColumn.css'
 import CheckBox from './CheckBox'
 
-class CheckBoxColumn extends Component{
+export class CheckBoxColumn extends Component{
   render(){
-    let arr = []
-    for (let item in columnDefaultState){
-        arr.push(columnDefaultState[item])
-    }
-    console.log('column render. length ' + arr.length)
-
+    let self = this
+    console.log('column render. props: ', this.props)
     return(
       <div className="checkbox-legend__container-column">
-        {arr && arr.map(item => {
+        {this.props.items && Object.values(this.props.items).map(item => {
           return(
-            <CheckBox key={item.id} {...item}/>
+            <CheckBox
+              key={self.props.name + item.id}
+              name={self.props.name}
+              action={self.props.action}
+              {...item}
+            />
           )
         })
         }
@@ -28,11 +27,3 @@ class CheckBoxColumn extends Component{
     )
   }
 }
-
-function mapState(state) {
-  return state.items
-}
-
-// export default connect(mapState)(CheckBoxColumn)
-
-export default CheckBoxColumn

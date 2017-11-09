@@ -6,14 +6,15 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 
 import './CheckBox.css'
-import {click} from '../actions/CheckBoxActions'
-
 
 class CheckBox extends Component{
+  constructor(props) {
+    super(props)
+    this.click = this.click.bind(this)
+  }
+
   click(event) {
-    let { dispatch } = this.props
-    let action = click(this.props.id)
-    dispatch(action)
+    this.props.dispatch(this.props.action(this.props.id))
   }
 
   render(){
@@ -25,16 +26,16 @@ class CheckBox extends Component{
     )
     return(
       <div className="checkbox-legend__container-column-row"
-           onClick={this.click.bind(this)}>
+           onClick={this.click}>
           <div className={classNames}></div>
-          <span>{this.props.text || 'unnamed'}</span>
+          <span>checkbox {this.props.id || 0}</span>
       </div>
     )
   }
 }
 
 function mapState(state, iam) {
-  return state.items[iam.id]
+  return state[iam.name][iam.id]
 }
 
 export default connect(mapState)(CheckBox)
